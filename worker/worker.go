@@ -19,7 +19,7 @@ func InitWorker() {
 
 		if err != nil {
 			fmt.Println(err.Error())
-			return
+			continue
 		}
 
 		list, err := links.LinkFinder(resp)
