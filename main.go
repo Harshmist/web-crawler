@@ -2,41 +2,27 @@ package main
 
 import (
 	"fmt"
-	"golang.org/x/net/html"
+	"github.com/harshmist/web-crawler/links"
 	"net/http"
 )
 
-var url = ""
+var url = "https://www.singlelink.co/"
 
 func main() {
-	resp, _ := http.Get(url)
+	resp, err := http.Get(url)
+
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 
 	defer resp.Body.Close()
 
-	var links []string
-	tokens := html.NewTokenizer(resp.Body)
-	for {
-		tokenType := tokens.Next()
+	list, err := links.LinkFinder(resp)
 
-		switch tokenType {
-		case html.ErrorToken:
-			break
-		case html.StartTagToken, html.EndTagToken:
-			token := tokens.Token()
-			if "a" == token.Data {
-				for _, attr := range token.Attr {
-					if attr.Key == "href" {
-						links = append(links, attr.Val)
-					}
-
-				}
-			}
-
-		}
-		if tokens.Err() != nil {
-			break
-		}
+	if err != nil {
+		fmt.Println(err.Error())
 	}
 
-	fmt.Print(links)
+	fmt.Print(list)
 }
