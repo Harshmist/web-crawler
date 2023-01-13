@@ -48,7 +48,7 @@ func LinkFinder(response *http.Response) (string, error) {
 }
 
 func listFormatter(links LinkList) string {
-	listString := ""
+	listString := "\nHere are your links:\n"
 
 	for _, v := range links {
 		if !strings.Contains(v, "://") {
