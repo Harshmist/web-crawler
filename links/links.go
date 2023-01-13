@@ -2,9 +2,10 @@ package links
 
 import (
 	"fmt"
-	"golang.org/x/net/html"
 	"net/http"
 	"strings"
+
+	"golang.org/x/net/html"
 )
 
 type LinkList []string
@@ -57,5 +58,5 @@ func listFormatter(links LinkList) string {
 		listString = fmt.Sprintf("%s%s\n", listString, v)
 	}
 
-	return listString
+	return listString + "\n"
 }
